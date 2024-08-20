@@ -17,11 +17,11 @@ const findUserByUsername = async (username) => {
 }
 
 
-const createPaymentAccount = async (userId) => {
+const createPaymentAccount = async (userId, balance) => {
     return db.paymentAccount.create({
         data: {
             userId: userId,
-            balance: 0
+            balance: balance
         },
     });
 }

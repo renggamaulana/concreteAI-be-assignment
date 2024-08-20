@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -34,7 +34,11 @@ model PaymentAccount {
 
 model PaymentHistory {
   id Int @id @default(autoincrement())
+  amount Float
   paymentAccountId Int 
+  type String
+  status String
+  toAccountId Int
   createdAt DateTime @default(now())
   paymentAccount PaymentAccount @relation(fields: [paymentAccountId], references: [id])
 }
@@ -43,9 +47,9 @@ model Transaction {
   id Int @id @default(autoincrement())
   amount Float 
   paymentAccountId Int
-  timestamp DateTime @default(now())
-  toAddress String
+  type String
   status String 
+  toAccountId Int
   createdAt DateTime @default(now())
   paymentAccount PaymentAccount @relation(fields: [paymentAccountId], references: [id])
 }
