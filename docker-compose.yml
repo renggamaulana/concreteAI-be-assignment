@@ -2,16 +2,15 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    container_name: concrete_app
+    ports:
+      - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/concretedb
+      - DATABASE_URL=postgresql://postgres:password@db:5432/concrete_db
       - PORT=3000
       - NODE_ENV=development
       - JWT_SECRET=secret
-    ports:
-      - "3000:3000"
     depends_on:
       - db
     volumes:
@@ -20,14 +19,15 @@ services:
 
   db:
     image: postgres:latest
+    container_name: concrete_db
     environment:
-      POSTGRES_USER: user
+      POSTGRES_DB: concrete_db
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: concretedb
     ports:
       - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  db-data:
+  postgres_data:
