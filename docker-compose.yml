@@ -13,9 +13,10 @@ services:
       - JWT_SECRET=secret
     depends_on:
       - db
+      - migrate
     volumes:
       - .:/app
-    command: npm run dev
+      - /app/node_modules
 
   db:
     image: postgres:latest
@@ -25,9 +26,28 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  migrate:
+    image: postgres:latest
+    container_name: concreteai-be-assignment-migrate
+    environment:
+      - PGPASSWORD=password
+    command: |
+      sh -c '
+        until pg_isready -h db -p 5432; do
+          echo "Waiting for db to be ready...";
+          sleep 2;
+        done;
+        psql -h db -U postgres -d concrete_db -f /migrations/20240820093746_init/migration.sql
+      '
+    depends_on:
+      - db
+    volumes:
+      - /home/eeq/Desktop/rengga/concreteAI-be-assignment/src/prisma/migrations:/migrations
+
 
 volumes:
   postgres_data:
