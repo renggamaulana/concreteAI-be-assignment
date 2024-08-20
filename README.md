@@ -59,10 +59,11 @@ To build and run the application using Docker, follow these steps:
 
 **Account Manager** 
 
-[POST] localhost:3000/register : user register
+[POST] localhost:3000/register : user register <br>
 [POST] localhost:3000/login : user login
 
 **Payment Manager**
-[POST] localhost:3000/payment/send : Send
-[POST] localhost:3000/payment/withdraw : Withdraw
+
+[POST] localhost:3000/payment/send : Send <br>
+[POST] localhost:3000/payment/withdraw : Withdraw <br>
 [GET] localhost:3000/payment/transaction/{accountID} : View data by accountID
