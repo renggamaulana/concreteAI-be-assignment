@@ -57,11 +57,12 @@ To build and run the application using Docker, follow these steps:
 
 ### Endpoint list
 
-*Account 
+**Account Manager** 
 
 [POST] localhost:3000/register : user register
 [POST] localhost:3000/login : user login
 
+**Payment Manager**
 [POST] localhost:3000/payment/send : Send
 [POST] localhost:3000/payment/withdraw : Withdraw
 [GET] localhost:3000/payment/transaction/{accountID} : View data by accountID
