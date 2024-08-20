@@ -41,17 +41,17 @@ ConcreteAI BE Assignment is a backend service built with Node.js, Fastify, and P
     ```
 
 4. **Run migrations:**
-    ``` npx prisma migrate deploy ```
+    ``` npx prisma migrate dev --name migration_name```
 
 5. **Start the application:**
-    ``` npm start ```
+    ``` npm run dev ```
 
 ## Docker
 To build and run the application using Docker, follow these steps:
 
 ```
 - docker-compose up --build
-- docker-compose up -d or make up
+- docker-compose up -d
 
 ```
 

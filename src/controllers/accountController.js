@@ -16,7 +16,7 @@ const login = async (request, reply) => {
 
 const createAccount = async (request, reply) => {
     const { type } = request.body; // Optional, default to 'Debit'
-    const userId = request.user.id; // User ID dari JWT payload
+    const userId = request.user.id;
 
     try {
         const account = await accountService.createPaymentAccount(userId, type || 'Debit');

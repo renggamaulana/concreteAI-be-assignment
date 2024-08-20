@@ -5,7 +5,7 @@ const sendPayment = async (userId, amount, toAddress) => {
     
     const transaction = await db.$transaction(async (prisma) => {
         
-        const senderAccount = await prisma.paymentAccount.findUnique({
+        const senderAccount = await db.paymentAccount.findFirst({
             where: { userId: userId },
         });
 
@@ -17,7 +17,7 @@ const sendPayment = async (userId, amount, toAddress) => {
             throw new Error('Insufficient funds');
         }
 
-        const recipientAccount = await prisma.paymentAccount.findUnique({
+        const recipientAccount = await db.paymentAccount.findFirst({
             where: { id: toAddress },
         });
 
@@ -84,7 +84,12 @@ const withdrawFunds = async (userId, amount) => {
     return transaction;
 };
 
+async function getTransactionsByAccountId(accountId) {
+    return await db.transaction.find({ paymentAccountId: accountId });
+}
+
 module.exports = {
     sendPayment,
     withdrawFunds,
+    getTransactionsByAccountId
 };

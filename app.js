@@ -1,16 +1,16 @@
-// require('dotenv').config();
+
 const fastify = require('fastify')({ logger: true });
 
-const swaggerConfig = require('./configs/swagger');
+// const swaggerConfig = require('./src/configs/swagger');
 const accountRoutes = require('./src/routes/accountRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 require('dotenv').config();
 
-swaggerConfig(fastify);
+// swaggerConfig(fastify);
 
 // Register Routes
-fastify.register(accountRoutes, { prefix: '/auth'});
-fastify.register(paymentRoutes, { prefix: '/payment'});
+fastify.register(accountRoutes);
+fastify.register(paymentRoutes, { prefix: '/transactions'});
 
 // Start Server
 const start = async () => {
