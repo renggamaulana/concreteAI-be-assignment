@@ -1,14 +1,14 @@
 // require('dotenv').config();
 const fastify = require('fastify')({ logger: true });
 
-// const swaggerConfig = require('./configs/swagger');
+const swaggerConfig = require('./configs/swagger');
 const accountRoutes = require('./src/routes/accountRoutes');
-const transactionRoutes = require('./src/routes/transactionRoutes');
+const paymentRoutes = require('./src/routes/paymentRoutes');
 require('dotenv').config();
 
 // Register Routes
 fastify.register(accountRoutes);
-// fastify.register(transactionRoutes);
+fastify.register(paymentRoutes);
 
 // Running server
 fastify.listen({ port: 3000 }, err => {

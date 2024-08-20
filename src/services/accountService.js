@@ -1,6 +1,7 @@
 const accountModel = require("../models/accountModel")
 const argon2 = require("argon2");
 const jwt = require('jsonwebtoken');
+const db = require("../configs/db");
 
 async function registerUser(username, password) {
     const user = await accountModel.createUser(username, password);
@@ -35,6 +36,19 @@ async function loginUser(username, password) {
     return { token };
 }
 
+const createPaymentAccount = async (userId, type = 'Debit') => {
+    const account = await db.paymentAccount.create({
+        data: {
+            userId,
+            type,
+            balance: 0
+        },
+    });
+
+    return account;
+};
 
 
-module.exports = { registerUser, findUser, loginUser };
+
+
+module.exports = { registerUser, findUser, loginUser, createPaymentAccount };

@@ -1,4 +1,4 @@
-const accountService = require("../services/accountManager");
+const accountService = require("../services/accountService");
 const argon2 = require("argon2");
 
 const register = async (request, reply) => {
@@ -14,4 +14,21 @@ const login = async (request, reply) => {
     reply.send({message: "Succesfully logged in!", account});
 }
 
-module.exports = { register, login };
+const createAccount = async (request, reply) => {
+    const { type } = request.body; // Optional, default to 'Debit'
+    const userId = request.user.id; // User ID dari JWT payload
+
+    try {
+        const account = await accountService.createPaymentAccount(userId, type || 'Debit');
+        reply.send({ message: 'Account created successfully', account });
+    } catch (error) {
+        console.error('Create account error:', error);
+        return reply.code(500).send({ message: 'Internal Server Error' });
+    }
+};
+
+module.exports = {
+    register,
+    login,
+    createAccount
+};

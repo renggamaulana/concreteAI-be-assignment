@@ -17,7 +17,6 @@ CREATE TABLE `PaymentAccount` (
     `balance` DOUBLE NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    UNIQUE INDEX `PaymentAccount_userId_key`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -25,6 +24,7 @@ CREATE TABLE `PaymentAccount` (
 CREATE TABLE `PaymentHistory` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `paymentAccountId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
