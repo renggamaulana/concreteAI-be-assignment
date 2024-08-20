@@ -15,12 +15,10 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  email String @unique
-  name String
+  username String @unique
   password String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  paymentAccount PaymentAccount?
+  accounts PaymentAccount[]
 }
 
 model PaymentAccount {
@@ -29,6 +27,7 @@ model PaymentAccount {
   type String @default("Debit")
   balance Float
   user User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
   transactions Transaction[] 
   paymentHistories PaymentHistory[]
 }
@@ -46,6 +45,7 @@ model Transaction {
   timestamp DateTime @default(now())
   toAddress String
   status String 
+  createdAt DateTime @default(now())
   paymentAccount PaymentAccount @relation(fields: [paymentAccountId], references: [id])
 }
 
